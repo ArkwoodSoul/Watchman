@@ -1,0 +1,8 @@
+# set main nation
+user_agent = ""
+
+# set target region
+target_region = ""
+
+# set webhook URL
+url = ""
