@@ -13,7 +13,7 @@ ua = "{} using Watchman, by The Phantom Gambler".format(data["user_agent"])
 sans.set_agent(ua)
 # defining the target region
 region = data["target_region"].lower().replace(" ","_")
-# fetching the feeds for moves and endings, filtering by target region
+# The heart of the program, retrieves the information we want and posts to webhook URL
 for event in sans.serversent_events(sans.Client(),"ending","move").view(regions=[region]):
     event_text = event["str"]
     if "relocated" in event_text:
