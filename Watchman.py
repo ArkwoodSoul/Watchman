@@ -12,26 +12,26 @@ WebhookSync = discord.SyncWebhook.from_url(webhook)
 ua = "{} using Watchman, by The Phantom Gambler".format(data["user_agent"])
 sans.set_agent(ua)
 # defining the target region
-region = data["target_region"].lower().replace(" ","_")
+region = [x.lower().replace(" ","_") for x in data["target_regions"]]
 # The heart of the program, retrieves the information we want and posts to webhook URL
-for event in sans.serversent_events(sans.Client(),"ending","move").view(regions=[region]):
+for event in sans.serversent_events(sans.Client(),"cte","move").view(regions=region):
     event_text = event["str"]
     if "relocated" in event_text:
         if "from %%the_brotherhood_of_malice%%" in event_text:
             nname = re.search(r"@@(.*)@@",event_text).group(1)
             link = "https://www.nationstates.net/nation={}".format(nname)
-            final_msg = link + " has departed The Brotherhood."
-            embed = discord.Embed(title="Departure",description=final_msg,color=discord.Color(0xff0000))
+            final_msg = "[{}]({}) {}".format(nname.replace("_"," ").title(),link,data["leave"]) #link + " has departed The Brotherhood."
+            embed = discord.Embed(title="Departure",description=final_msg,color=discord.Color(data["leave_c"]))
             WebhookSync.send(embed=embed)
         else:
             nname = re.search(r"@@(.*)@@",event_text).group(1)
             link = "https://www.nationstates.net/nation={}".format(nname)
-            final_msg = link + " has joined The Brotherhood."
-            embed = discord.Embed(title="Arrival",description=final_msg,color=discord.Color(0xff0000))
+            final_msg = "[{}]({}) {}".format(nname.replace("_"," ").title(),link,data["join"]) #link + " has joined The Brotherhood."
+            embed = discord.Embed(title="Arrival",description=final_msg,color=discord.Color(data["join_c"]))
             WebhookSync.send(embed=embed)
     else:
         nname = re.search(r"@@(.*)@@",event_text).group(1)
         link = "https://www.nationstates.net/nation={}".format(nname)
-        final_msg = link + " has died in service to The Overseer."
-        embed = discord.Embed(title="Entombment",description=final_msg,color=discord.Color(0xff0000))
+        final_msg = "[{}]({}) {}".format(nname.replace("_"," ").title(),link,data["cte"]) #link + " has died in service to The Overseer."
+        embed = discord.Embed(title="Entombment",description=final_msg,color=discord.Color(data["data_c"]))
         WebhookSync.send(embed=embed)
