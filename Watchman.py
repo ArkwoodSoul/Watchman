@@ -12,12 +12,12 @@ WebhookSync = discord.SyncWebhook.from_url(webhook)
 ua = "{} using Watchman, by The Phantom Gambler".format(data["user_agent"])
 sans.set_agent(ua)
 # defining the target region
-region = [x.lower().replace(" ","_") for x in data["target_regions"]]
+regions = [x.lower().replace(" ","_") for x in data["target_regions"]]
 # The heart of the program, retrieves the information we want and posts to webhook URL
-for event in sans.serversent_events(sans.Client(),"cte","move").view(regions=region):
+for event in sans.serversent_events(sans.Client(),"cte","move").view(regions=regions):
     event_text = event["str"]
     if "relocated" in event_text:
-        if "from %%the_brotherhood_of_malice%%" in event_text:
+        if any("from %%{}%%".format(region) in event_text for region in regions):
             nname = re.search(r"@@(.*)@@",event_text).group(1)
             link = "https://www.nationstates.net/nation={}".format(nname)
             final_msg = "[{}]({}) {}".format(nname.replace("_"," ").title(),link,data["leave"]) #link + " has departed The Brotherhood."
