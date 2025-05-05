@@ -1,8 +1,18 @@
 # set main nation
 user_agent = ""
 
-# set target region
-target_region = ""
+# set target regions
+target_regions = [""]
 
 # set webhook URL
 url = ""
+
+# customize messages
+leave = "has departed"
+join = "has joined"
+cte = "has perished"
+
+# embed colours - hex codes
+leave_c = 0xff0000
+join_c = 0x00ff00
+cte_c = 0xff0000
