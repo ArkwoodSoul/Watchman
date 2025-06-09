@@ -16,3 +16,4 @@ cte = "has perished"
 leave_c = 0xff0000
 join_c = 0x00ff00
 cte_c = 0xff0000
+information_c = 0x0000ff
