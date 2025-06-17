@@ -44,7 +44,7 @@ try:
             link = "https://www.nationstates.net/nation={}".format(nname)
             region_pops -= 1
             final_msg = "[{}]({}) {}. Current population {}".format(nname.replace("_"," ").title(),link,data["cte"],region_pops) #link + " has died in service to The Overseer."
-            embed = discord.Embed(title="Entombment",description=final_msg,color=discord.Color(data["data_c"]))
+            embed = discord.Embed(title="Entombment",description=final_msg,color=discord.Color(data["cte_c"]))
             WebhookSync.send(embed=embed)
 except KeyboardInterrupt:
     #Slightly more gracefull exit
